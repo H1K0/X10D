@@ -18,3 +18,8 @@ Commands:
   binv  Invert FILE(S) bitwisely.
   now   What's time?
 ```
+
+### Commands
+
+- `binv <file [file [...]]>` inverts bitwisely a single file or several ones separated with spaces. For example, `00ff 775a` becomes `ff00 88a5`.
+- `now` outputs the full datetime at the moment, _e.g._ `Right now: 2020-07-06 16:45:22.588288`.
