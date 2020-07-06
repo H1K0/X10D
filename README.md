@@ -4,7 +4,7 @@ Well, just a set of some commands to extend the functionality of your command sh
 
 ## Installing
 
-Just add the directory with the `h1k0.exe` to the PATH. In future I plan to make the `setup.exe` which will do this automatically.
+Just add the directory with the [`h1k0.exe`](h1k0.exe) to the PATH. In future I plan to make the `setup.exe` which will do this automatically.
 
 ## Usage
 
