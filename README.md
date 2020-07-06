@@ -1,4 +1,4 @@
-# H1K0 Module ![For any OS where command shell exists](https://img.shields.io/badge/Windows-XP+-brightgreen.svg)
+# H1K0util ![For any OS where command shell exists](https://img.shields.io/badge/Windows-XP+-brightgreen.svg)
 
 Well, just a set of some commands to extend the functionality of your command shell.
 
