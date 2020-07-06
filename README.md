@@ -15,5 +15,6 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  now  What's time?
+  binv  Invert FILE(S) bitwisely.
+  now   What's time?
 ```
