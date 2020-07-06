@@ -11,6 +11,8 @@ Just add the directory with the [`xtd.exe`](xtd.exe) to the PATH. In future I pl
 ```
 $ xtd [OPTIONS] COMMAND [ARGS]...
 
+  ===== X10D (extend) your CMD! =====
+
 Options:
   --help  Show this message and exit.
 

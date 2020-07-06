@@ -1,16 +1,17 @@
 import click
 from os import access,F_OK
-from datetime import datetime as dt
 
 
 @click.group()
 def cli():
+	"""===== X10D (extend) your CMD! ====="""
 	pass
 
 
 @click.command()
 def now():
 	"""What's time?"""
+	from datetime import datetime as dt
 	print(f'Right now: {dt.utcnow()}')
 cli.add_command(now)
 
@@ -31,6 +32,14 @@ def binv(files):
 			crypt.write(bytes(cryptbytes))
 		print(f"'{file}' successfully inverted.")
 cli.add_command(binv)
+
+'''
+@click.command()
+@click.argument('files',nargs=-1,metavar='<file [file [...]]>')
+def md(files):
+	pass
+cli.add_command(md)
+'''
 
 
 if __name__=='__main__':
