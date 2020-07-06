@@ -1,4 +1,4 @@
-# X10D (_extend_) your CMD! ![For any OS where command shell exists](https://img.shields.io/badge/Windows-XP+-brightgreen.svg)
+# X10D (_extend_) your CMD! ![For any OS where command shell exists](https://img.shields.io/badge/Windows-unX10Ded-brightgreen.svg)
 
 Well, just a set of some commands to extend the functionality of your command shell.
 
