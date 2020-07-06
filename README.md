@@ -18,10 +18,12 @@ Options:
 
 Commands:
   binv  Invert FILE(S) bitwisely.
+  hfm   Compress or decompress FILE(S) using Haffman compression.
   now   What's time?
 ```
 
 ### Commands
 
 - `binv <file [file [...]]>` inverts bitwisely a single file or several ones separated with spaces. For example, `00ff 775a` becomes `ff00 88a5`.
+- `hfm [-c / -d]` compresses (if -c) or decompresses (if -d) FILE(S) using the [Huffman compression](https://en.wikipedia.org/wiki/Huffman_coding "Read about it on Wikipedia").
 - `now` outputs the full datetime at the moment, _e.g._ `Right now: 2020-07-06 16:45:22.588288`.
