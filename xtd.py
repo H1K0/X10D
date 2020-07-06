@@ -12,7 +12,9 @@ def cli():
 def now():
 	"""What's time?"""
 	from datetime import datetime as dt
-	print(f'Right now: {dt.utcnow()}')
+	genzai=dt.today()
+	print(f'Right now: {genzai.year}-{str(genzai.month).rjust(2,"0")}-{str(genzai.day).rjust(2,"0")} '
+		  f'{str(genzai.hour).rjust(2,"0")}:{str(genzai.minute).rjust(2,"0")}:{str(genzai.second).rjust(2,"0")}')
 cli.add_command(now)
 
 @click.command()
