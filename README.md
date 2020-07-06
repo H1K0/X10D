@@ -13,4 +13,7 @@ $ h1k0 [OPTIONS] COMMAND [ARGS]...
 
 Options:
   --help  Show this message and exit.
+
+Commands:
+  now  What's time?
 ```
