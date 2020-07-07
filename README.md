@@ -18,7 +18,7 @@ Options:
 
 Commands:
   binv  Invert FILE(S) bitwisely.
-  hfm   Compress or decompress FILE(S) using Haffman compression.
+  hfm   Compress or decompress FILE(S) using Huffman compression.
   now   What's time?
 ```
 
