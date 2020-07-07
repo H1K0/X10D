@@ -35,35 +35,27 @@ def binv(files):
 
 @CLI.command(options_metavar='[-c / -d]')
 @click.argument('files',nargs=-1,metavar='<file [file [...]]>')
-@click.option('-c/-d','comp',required=True,default=True)
+@click.option('-c/-d','comp',default=True,help='Compress/decompress mode selectors.')
 def hfm(files,comp):
 	"""Compress or decompress FILE(S) using the Huffman compression.
 
 	Use -c to compress and -d to decompress FILE(S).
-
 	"""
-	from _includes import huffman as hfm
+	from _includes import huffman as hf
 	for file in files:
 		if not access(file,F_OK):
 			print(f"'{file}' not found.")
 			continue
 		if comp:
-			hfm.compress_file(file)
+			hf.compress_file(file)
 			print(f"'{file}' successfully compressed.")
 		else:
 			table=file+'.tbl'
 			if not access(table,F_OK):
-				table=input(f"Table file '{file}.tbl' was not found.")
+				print(f"Table file '{file}.tbl' was not found.")
 				continue
-			hfm.decompress_file(file)
+			hf.decompress_file(file)
 			print(f"'{file}' successfully decompressed.")
-
-'''
-@CLI.command()
-@click.argument('files',nargs=-1,metavar='<file [file [...]]>')
-def md(files):
-	pass
-'''
 
 
 if __name__=='__main__':

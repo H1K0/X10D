@@ -26,12 +26,51 @@ def huffman(data):
     return codes
 
 
+
+def tbl(table):
+    table=';'.join([f'{k};{table[k]}' for k in table]).split(';')
+    byts=[]
+    for i in range(len(table)):
+        if i%2:
+            num=table[i]
+        else:
+            num=bin(int(table[i]))[2:]
+        while len(num)>7:
+            byts.append(int('1'+num[:7],2))
+            num=num[7:]
+        byts.append(int(num,2))
+        byts.append(8-len(num))
+    return bytes(byts)
+
+
+
+def detbl(byts):
+    byts=list(map(lambda b:bin(b)[2:].rjust(8,'0'),byts))
+    dec=[]
+    table={}
+    stack=''
+    i=0
+    while i<len(byts):
+        if byts[i][0]=='1':
+            stack+=byts[i][1:]
+        else:
+            stack+=byts[i][int(byts[i+1],2):]
+            dec.append(stack[:])
+            stack=''
+            i+=1
+        i+=1
+    for i in range(0,len(dec),2):
+        table[dec[i+1]]=int(dec[i],2)
+    return table
+
+
+
 def compress_file(filename):
     with open(filename,'rb') as file: #get data
         data=list(map(int,file.read()))
     hf=huffman(data)
-    with open(f'{filename}.hfm.tbl','w') as file: #create a table file
-        file.write(';'.join([f'{k}:{hf[k]}' for k in hf]))
+    with open(f'{filename}.hfm.tbl','wb') as file: #create a table file
+        file.write(tbl(hf))
     l=''
     out=[]
     for i in range(len(data)): #encode to Haffman
@@ -49,8 +88,8 @@ def decompress_file(filename):
         data[-2]=data[-2][:int(data[-1],2)]
         del data[-1]
         data=''.join(data)
-    with open(filename+'.tbl') as file: #get table
-        table={code:char for char,code in list(map(lambda c:c.split(':'),file.read().split(';')))}
+    with open(filename+'.tbl','rb') as file: #get table
+        table=detbl(file.read())
     stack=''
     out=[]
     for c in data: #decode Haffman
