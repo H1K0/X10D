@@ -50,10 +50,6 @@ def hfm(files,comp):
 			hf.compress_file(file)
 			print(f"'{file}' successfully compressed.")
 		else:
-			table=file+'.tbl'
-			if not access(table,F_OK):
-				print(f"Table file '{file}.tbl' was not found.")
-				continue
 			hf.decompress_file(file)
 			print(f"'{file}' successfully decompressed.")
 

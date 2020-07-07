@@ -40,12 +40,11 @@ def tbl(table):
             num=num[7:]
         byts.append(int(num,2))
         byts.append(8-len(num))
-    return bytes(byts)
+    return byts
 
 
 
 def detbl(byts):
-    byts=list(map(lambda b:bin(b)[2:].rjust(8,'0'),byts))
     dec=[]
     table={}
     stack=''
@@ -69,17 +68,21 @@ def compress_file(filename):
     with open(filename,'rb') as file: #get data
         data=list(map(int,file.read()))
     hf=huffman(data)
-    with open(f'{filename}.hfm.tbl','wb') as file: #create a table file
-        file.write(tbl(hf))
-    l=''
+    table=tbl(hf)
     out=[]
+    ln=bin(len(table))[2:] #embed the table
+    while len(ln)>7:
+        out.append(int('1'+ln[:7],2))
+        ln=ln[7:]
+    out+=[int(ln,2),8-len(ln)]+table
+    stack=''
     for i in range(len(data)): #encode to Haffman
-        l+=hf[data[i]]
-        while len(l)>=8:
-            out.append(int(l[:8],2))
-            l=l[8:]
+        stack+=hf[data[i]]
+        while len(stack)>=8:
+            out.append(int(stack[:8],2))
+            stack=stack[8:]
     with open(f'{filename}.hfm','wb') as file: #save Haffman code
-        file.write(bytes(out+[int(l.ljust(8,'0'),2),len(l)]))
+        file.write(bytes(out+[int(stack.ljust(8,'0'),2),len(stack)]))
 
 
 def decompress_file(filename):
@@ -87,9 +90,19 @@ def decompress_file(filename):
         data=[bin(byte)[2:].rjust(8,'0')for byte in file.read()]
         data[-2]=data[-2][:int(data[-1],2)]
         del data[-1]
-        data=''.join(data)
-    with open(filename+'.tbl','rb') as file: #get table
-        table=detbl(file.read())
+    ln='' #extract the table
+    i=0
+    while 1:
+        if data[i][0]=='1':
+            ln+=data[i][1:]
+        else:
+            ln+=data[i][int(data[i+1],2):]
+            break
+        i+=1
+    del data[:i+2]
+    table=detbl(data[:int(ln,2)])
+    del data[:int(ln,2)]
+    data=''.join(data)
     stack=''
     out=[]
     for c in data: #decode Haffman
