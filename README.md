@@ -25,5 +25,5 @@ Commands:
 ### Commands
 
 - `binv <file [file [...]]>` inverts bitwisely a single file or several ones separated with spaces. For example, `00ff 775a` becomes `ff00 88a5`.
-- `hfm [-c / -d] <file [file [...]]>` compresses (if -c) or decompresses (if -d) FILE(S) using the [Huffman compression](https://en.wikipedia.org/wiki/Huffman_coding "Read about it on Wikipedia").
+- `hfm [-c / -d] <file [file [...]]>` compresses (if -c) or decompresses (if -d) a single file or several ones separated with spaces using the [Huffman compression](https://en.wikipedia.org/wiki/Huffman_coding "Read about it on Wikipedia").
 - `now` outputs the full datetime at the moment, _e.g._ `2020-07-06 23:08:26`.
