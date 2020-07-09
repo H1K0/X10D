@@ -7,7 +7,7 @@ from os.path import dirname,abspath as path
 
 logging.basicConfig(filename=f'{dirname(__file__)}/log',
 					level=logging.INFO,
-					format='%(asctime)s | %(levelname)s | %(name)s | %(message)s')
+					format='%(asctime)s | %(name)s | %(message)s')
 log=newlog('xtd')
 
 
