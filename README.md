@@ -4,7 +4,7 @@ Well, just a set of some commands to extend the functionality of your command sh
 
 ## Installing
 
-Just download the [`xtd.exe`](xtd.exe) and add it to the PATH.
+Just download the [`xtd.exe`](xtd.exe) and add the its directory to the PATH.
 
 ## Usage
 
