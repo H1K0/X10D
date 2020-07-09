@@ -1,10 +1,15 @@
-# X10D (_extend_) your CMD! ![For any OS where command shell exists](https://img.shields.io/badge/Windows-unX10Ded-brightgreen.svg)
+# X10D (_extend_) your CMD! ![For unX10Ded Windows](https://img.shields.io/badge/Windows-unX10Ded-brightgreen.svg)
 
 Well, just a set of some commands to extend the functionality of your command shell.
 
 ## Installing
 
-Just download the [`xtd.exe`](xtd.exe) and add the its directory to the PATH.
+Download this repository and run [`setup.py`](setup.py).
+
+## Required
+
+- ![Python 3+](https://img.shields.io/badge/Python-3+-blue.svg)
+- PyInstaller
 
 ## Usage
 
