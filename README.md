@@ -4,7 +4,7 @@ Well, just a set of some commands to extend the functionality of your command sh
 
 ## Installing
 
-Download this repository and run [`setup.py`](setup.py).
+Download this repository and run `setup.py`.
 
 ### Requirements
 
