@@ -1,14 +1,10 @@
 import click
-import logging
-from logging import getLogger as newlog
+from _includes.logger import Log
 from os import access,F_OK
-from os.path import dirname,abspath as path
+from os.path import dirname,join,abspath as path
 
 
-logging.basicConfig(filename=f'{dirname(__file__)}/log',
-					level=logging.INFO,
-					format='%(asctime)s | %(name)s | %(message)s')
-log=newlog('xtd')
+log=Log(join(dirname(__file__),'log'),'xtd')
 
 
 @click.group()
@@ -20,7 +16,7 @@ def CLI():
 @CLI.command()
 def now():
 	"""What's time?"""
-	log.info('now')
+	log.log('now')
 	from datetime import datetime as dt
 	genzai=dt.today()
 	print(f'{genzai.year}-{str(genzai.month).rjust(2,"0")}-{str(genzai.day).rjust(2,"0")} '
@@ -30,14 +26,13 @@ def now():
 @click.argument('files',nargs=-1,metavar='<file [file [...]]>')
 def binv(files):
 	"""Invert FILE(S) bitwisely."""
-	log.info(f'binv {" ".join(files)}')
-	_log=newlog('xtd.binv')
+	log.log(f'binv {" ".join(files)}')
 	for file in files:
 		if not access(file,F_OK):
-			log.info(f"'{file}' not found.")
+			log.log(f"'{file}' not found.")
 			print(f"'{file}' not found.")
 			continue
-		_log.info(f"Inverting '{path(file)}'...")
+		log.log(f"Inverting '{path(file)}'...",'xtd.binv')
 		with open(file,'rb') as plain:
 			plainbytes=list(plain.read())
 			cryptbytes=[]
@@ -45,7 +40,7 @@ def binv(files):
 				cryptbytes.append(255-int(byte))
 		with open(file,'wb') as crypt:
 			crypt.write(bytes(cryptbytes))
-		_log.info('SUCCESSFULLY INVERTED')
+		log.log('SUCCESSFULLY INVERTED','xtd.binv')
 		print(f"'{file}' successfully inverted.")
 
 @CLI.command(options_metavar='[-c / -d]')
@@ -56,24 +51,23 @@ def hfm(files,comp):
 
 	Use -c to compress and -d to decompress FILE(S).
 	"""
-	log.info(f'hfm {"-c"*comp}{"-d"*(not comp)} {" ".join(files)}')
-	# _log=newlog('xtd.hfm')
-	log.info("Importing 'huffman' module...")
+	log.log(f'hfm {"-c"*comp}{"-d"*(not comp)} {" ".join(files)}')
+	log.log("Importing 'huffman' module...")
 	try:
-		from _includes import huffman as hf
+		from _includes.huffman import compress_file,decompress_file
 	except:
-		log.fatal("'huffman' module not found.")
+		log.log("'huffman' module not found.")
 		return
 	for file in files:
 		if not access(file,F_OK):
-			log.info(f"'{path(file)}' not found.")
+			log.log(f"'{path(file)}' not found.")
 			print(f"'{file}' not found.")
 			continue
 		if comp:
-			hf.compress_file(path(file))
+			compress_file(path(file))
 			print(f"'{file}' successfully compressed.")
 		else:
-			hf.decompress_file(path(file))
+			decompress_file(path(file))
 			print(f"'{file}' successfully decompressed.")
 
 

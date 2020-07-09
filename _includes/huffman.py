@@ -1,7 +1,8 @@
-from logging import getLogger as newlog
+from _includes.logger import Log
+from os.path import dirname,join
 
 
-_log=newlog('xtd.hfm')
+_log=Log(join(dirname(__file__),'../log'),'xtd.hfm')
 
 
 def huffman(data):
@@ -71,22 +72,22 @@ def detbl(byts):
 
 
 def compress_file(filename):
-    _log.info(f"Loading '{filename}'...")
+    _log.log(f"Loading '{filename}'...")
     with open(filename,'rb') as file: #get data
         data=list(map(int,file.read()))
-    _log.info(f'Original size: {len(data)} bytes.')
-    _log.info('Creating Huffman table...')
+    _log.log(f'Original size: {len(data)} bytes.')
+    _log.log('Creating Huffman table...')
     hf=huffman(data)
     table=tbl(hf)
-    _log.info('Embedding Huffman table...')
+    _log.log('Embedding Huffman table...')
     out=[]
     ln=bin(len(table))[2:] #embed the table
     while len(ln)>7:
         out.append(int('1'+ln[:7],2))
         ln=ln[7:]
     out+=[int(ln,2),8-len(ln)]+table
-    _log.info(f'Huffman table size: {len(out)} bytes.')
-    _log.info('Compressing...')
+    _log.log(f'Huffman table size: {len(out)} bytes.')
+    _log.log('Compressing...')
     stack=''
     for i in range(len(data)): #encode to Haffman
         stack+=hf[data[i]]
@@ -94,11 +95,11 @@ def compress_file(filename):
             out.append(int(stack[:8],2))
             stack=stack[8:]
     out+=[int(stack.ljust(8,'0'),2),len(stack)]
-    _log.info(f'Compressed size: {len(out)} bytes.')
-    _log.info(f"Saving to '{filename}.hfm'...")
+    _log.log(f'Compressed size: {len(out)} bytes.')
+    _log.log(f"Saving to '{filename}.hfm'...")
     with open(f'{filename}.hfm','wb') as file: #save Haffman code
         file.write(bytes(out))
-    _log.info('SUCCESSFULLY COMPRESSED')
+    _log.log('SUCCESSFULLY COMPRESSED')
     print(f'Original size:     {len(data)} bytes.')
     print(f'Compressed size:   {len(out)} bytes.')
     print(f'Saved:             {len(data)-len(out)} bytes.')
@@ -106,12 +107,12 @@ def compress_file(filename):
 
 
 def decompress_file(filename):
-    _log.info(f"Loading '{filename}'...")
+    _log.log(f"Loading '{filename}'...")
     with open(filename,'rb') as file: #get data
         data=[bin(byte)[2:].rjust(8,'0')for byte in file.read()]
         data[-2]=data[-2][:int(data[-1],2)]
         del data[-1]
-    _log.info('Extracting Huffman table...')
+    _log.log('Extracting Huffman table...')
     ln='' #extract the table
     i=0
     while 1:
@@ -127,14 +128,14 @@ def decompress_file(filename):
     data=''.join(data)
     stack=''
     out=[]
-    _log.info('Decompressing...')
+    _log.log('Decompressing...')
     for c in data: #decode Haffman
         stack+=c
         if stack in table:
             out.append(int(table[stack]))
             stack=''
     filename=filename[:-4]
-    _log.info(f"Saving to '{filename}'...")
+    _log.log(f"Saving to '{filename}'...")
     with open(f'{filename}','wb') as file: #save decoded data
         file.write(bytes(out))
-    _log.info('SUCCESSFULLY DECOMPRESSED')
+    _log.log('SUCCESSFULLY DECOMPRESSED')
