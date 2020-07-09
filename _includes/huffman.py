@@ -74,16 +74,18 @@ def compress_file(filename):
     _log.info(f"Loading '{filename}'...")
     with open(filename,'rb') as file: #get data
         data=list(map(int,file.read()))
+    _log.info(f'Original size: {len(data)} bytes.')
     _log.info('Creating Huffman table...')
     hf=huffman(data)
     table=tbl(hf)
-    out=[]
     _log.info('Embedding Huffman table...')
+    out=[]
     ln=bin(len(table))[2:] #embed the table
     while len(ln)>7:
         out.append(int('1'+ln[:7],2))
         ln=ln[7:]
     out+=[int(ln,2),8-len(ln)]+table
+    _log.info(f'Huffman table size: {len(out)} bytes.')
     _log.info('Compressing...')
     stack=''
     for i in range(len(data)): #encode to Haffman
@@ -92,16 +94,11 @@ def compress_file(filename):
             out.append(int(stack[:8],2))
             stack=stack[8:]
     out+=[int(stack.ljust(8,'0'),2),len(stack)]
+    _log.info(f'Compressed size: {len(out)} bytes.')
     _log.info(f"Saving to '{filename}.hfm'...")
     with open(f'{filename}.hfm','wb') as file: #save Haffman code
         file.write(bytes(out))
     _log.info('SUCCESSFULLY COMPRESSED')
-    _log.info('{'
-              f'"OriginalSize":{len(data)},'
-              f'"CompressedSize":{len(out)},'
-              f'"Saved":{len(data)-len(out)},'
-              f'"Compression":{(len(data)-len(out))/len(data)}'
-              '}')
     print(f'Original size:     {len(data)} bytes.')
     print(f'Compressed size:   {len(out)} bytes.')
     print(f'Saved:             {len(data)-len(out)} bytes.')
