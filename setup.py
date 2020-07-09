@@ -1,9 +1,10 @@
-from os.path import dirname,join
 try:
 	import PyInstaller.__main__ as build
 except:
 	print("PyInstaller is not installed. Let's install it using 'pip install pyinstaller' and run me again!")
 	exit()
+from os.path import dirname,join
+from os import system
 import winreg
 
 
@@ -30,3 +31,5 @@ build.run([
 ])
 
 add_to_path(dirname(__file__))
+
+system('pause')
