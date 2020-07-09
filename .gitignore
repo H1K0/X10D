@@ -1,6 +1,6 @@
 __pycache__/
 build/
 *.spec
-/xtd.exe
 /_includes/config.py
 /log
+/build.py

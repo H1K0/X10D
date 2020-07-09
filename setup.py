@@ -1,5 +1,4 @@
 from os.path import dirname,join
-import PyInstaller.__main__ as build
 import winreg
 
 
@@ -17,11 +16,5 @@ with open('_includes/config.py','w',encoding='utf-8') as config:
 	config.write(f'''
 path=r'{dirname(__file__)}'
 ''')
-
-build.run([
-    '--onefile',
-    '--distpath=.',
-    'xtd.py'
-])
 
 add_to_path(dirname(__file__))
