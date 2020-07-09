@@ -6,7 +6,7 @@ Well, just a set of some commands to extend the functionality of your command sh
 
 Download this repository and run [`setup.py`](setup.py).
 
-## Required
+### Requirements
 
 - ![Python 3+](https://img.shields.io/badge/Python-3+-blue.svg)
 - PyInstaller
