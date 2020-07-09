@@ -3,7 +3,7 @@ from _includes.logger import Log
 from os.path import dirname,join
 
 
-_log=Log(join(config.path,'/log'),'xtd.hfm')
+_log=Log(join(config.path,'log'),'xtd.hfm')
 
 
 def huffman(data):
