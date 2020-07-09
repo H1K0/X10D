@@ -4,7 +4,7 @@ Well, just a set of some commands to extend the functionality of your command sh
 
 ## Installing
 
-Just add the directory with the [`xtd.exe`](xtd.exe) to the PATH. In future I plan to make the `setup.exe` which will do this automatically.
+Download this repository and run the `[setup.exe](setup.exe)`. Then you can delete all files except `xtd.exe`.
 
 ## Usage
 

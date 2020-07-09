@@ -1,10 +1,11 @@
 import click
+import _includes.config as config
 from _includes.logger import Log
 from os import access,F_OK
 from os.path import dirname,join,abspath as path
 
 
-log=Log(join(dirname(__file__),'log'),'xtd')
+log=Log(join(config.path,'log'),'xtd')
 
 
 @click.group()

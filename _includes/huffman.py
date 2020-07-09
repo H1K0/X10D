@@ -1,8 +1,9 @@
+import _includes.config as config
 from _includes.logger import Log
 from os.path import dirname,join
 
 
-_log=Log(join(dirname(__file__),'../log'),'xtd.hfm')
+_log=Log(join(config.path,'/log'),'xtd.hfm')
 
 
 def huffman(data):
